@@ -19,8 +19,8 @@
 ### Database & Schema Setup
 - [x] Initialize Prisma in `prisma/` pointing to Supabase PostgreSQL (`DATABASE_URL`, `DIRECT_URL`)
 - [x] Define complete schema: `Model`, `Benchmark`, `TestRun`, `ProjectionModel`, `CustomEvaluation`
-- [ ] Run initial migration / `prisma db push` to Supabase ← **Blocked: waiting for Supabase credentials**
-- [x] Seed script written (`prisma/seed.ts`): 3 benchmarks + 12 models with curated public scores
+- [x] Run initial migration / `prisma db push` to Supabase ✅ (all 5 tables created)
+- [x] Seed database with initial data (`prisma/seed.ts`): 3 benchmarks + 12 models with curated public scores ✅
 
 ### Provider Wrappers & Evaluation Utilities
 - [x] Build unified LLM client interface (`lib/providers/index.ts`) with `callProvider()` dispatch

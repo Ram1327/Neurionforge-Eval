@@ -69,10 +69,10 @@
 
 ## What's Deployed / Live
 
-- **Vercel:** Pending — code built locally but not yet pushed to GitHub / Vercel project
-- **GitHub:** `https://github.com/Ram1327/Neurionforge-Eval.git` — git initialized locally, not yet pushed
-- **Supabase:** Not yet configured — credentials not yet provided. Schema ready, migrations pending
-- **Inngest:** Not yet connected — Inngest account and keys not yet provided
+- **Vercel:** Pending — code ready locally and pushed to GitHub
+- **GitHub:** `https://github.com/Ram1327/Neurionforge-Eval.git` — up to date on `main`
+- **Supabase:** ✅ Fully connected and migrated! All 5 tables created (`Model`, `Benchmark`, `TestRun`, `ProjectionModel`, `CustomEvaluation`) and seeded with 3 benchmarks & 12 starter models.
+- **Inngest:** Handler and Hello World function ready at `/api/inngest` — waiting for account keys in Vercel.
 
 ---
 
@@ -86,10 +86,10 @@
 | 5 provider wrappers implemented | ✅ |
 | Inngest Hello World function configured | ✅ |
 | Prisma schema defined | ✅ |
-| Seed data prepared (3 benchmarks, 12 models) | ✅ |
-| Pushed to GitHub | ⏳ Pending first push |
-| Vercel deployment live | ⏳ Pending Vercel project setup |
-| Supabase schema migrated | ⏳ Pending credentials |
+| Supabase schema migrated (`prisma db push`) | ✅ |
+| Database seeded (3 benchmarks, 12 models) | ✅ |
+| Pushed to GitHub | ✅ |
+| Vercel deployment live | ⏳ Ready to deploy |
 | Inngest handler verified end-to-end | ⏳ Pending account keys |
 
 ---
