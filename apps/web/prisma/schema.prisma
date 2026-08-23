@@ -1,0 +1,115 @@
+// ============================================================
+// NeurionForge Eval — Prisma Schema
+// Database: Supabase PostgreSQL
+// ============================================================
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ── Model (LLM being evaluated) ──────────────────────────────────────────────
+model Model {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  name          String
+  // e.g. "OpenAI", "Anthropic", "Meta", "Google", "DeepSeek", "Mistral", "Qwen"
+  provider      String
+  // "frontier_hosted" | "open_weight" | "local" | "custom"
+  sourceType    String
+  description   String?
+  contextWindow Int?
+  // { inputPer1M: float, outputPer1M: float }
+  pricing       Json?
+  // Hand-curated public benchmark scores: { gpqa, swebench, aime, mmluPro, arenaElo }
+  publicScores  Json?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  testRuns      TestRun[]
+}
+
+// ── Benchmark (a test suite definition) ──────────────────────────────────────
+model Benchmark {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  name          String
+  // "reasoning" | "coding" | "math" | "knowledge" | "instruction_following"
+  // | "long_context" | "structured_output" | "tool_calling" | "safety"
+  category      String
+  description   String
+  // "exact_match" | "unit_test" | "mcq" | "llm_judge"
+  scoringMethod String
+  // Supabase Storage bucket path or embedded JSON dataset reference
+  promptSetRef  String
+  sampleCount   Int       @default(0)
+  version       Int       @default(1)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  testRuns      TestRun[]
+}
+
+// ── TestRun (one evaluation: one model × one benchmark) ─────────────────────
+model TestRun {
+  id              String           @id @default(cuid())
+  modelId         String
+  model           Model            @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  benchmarkId     String
+  benchmark       Benchmark        @relation(fields: [benchmarkId], references: [id], onDelete: Cascade)
+  // "measured" | "projected"
+  resultType      String
+  // 0.0 to 100.0
+  score           Float
+  // Confidence interval (only for projected runs)
+  confidenceLow   Float?
+  confidenceHigh  Float?
+  // Which ProjectionModel produced this score (if resultType == "projected")
+  projectionId    String?
+  projection      ProjectionModel? @relation(fields: [projectionId], references: [id])
+  // Per-sample breakdown: [{ promptId, passed, latencyMs, tokens, output }]
+  rawResults      Json?
+  latencyAvgMs    Float?
+  throughputTps   Float?
+  runAt           DateTime         @default(now())
+}
+
+// ── ProjectionModel (the OLS regression formula for a category) ──────────────
+model ProjectionModel {
+  id                 String    @id @default(cuid())
+  // "reasoning" | "coding" | "math" | ...
+  category           String
+  version            Int       @default(1)
+  // Published weights: { gpqa: 0.35, swebench: 0.40, aime: 0.15, arenaElo: 0.10, intercept: 5.2 }
+  coefficients       Json
+  // IDs of Model records that formed the calibration set for this formula
+  trainedOnModelIds  String[]
+  // Goodness of fit (0.0 to 1.0) — displayed on /methodology
+  rSquared           Float?
+  standardError      Float?
+  createdAt          DateTime  @default(now())
+  testRuns           TestRun[]
+}
+
+// ── CustomEvaluation (user-uploaded evaluation with no-auth shareable link) ──
+model CustomEvaluation {
+  id          String    @id @default(cuid())
+  // No-auth shareable token — this IS the access credential, keep it unguessable
+  shareId     String    @unique @default(cuid())
+  name        String
+  description String?
+  // Supabase Storage path to the uploaded JSONL/CSV dataset
+  datasetUrl  String
+  // ["accuracy", "relevance", "instruction_following", "hallucination", "toxicity"]
+  metrics     String[]
+  // e.g. "gpt-4o-mini" — the user's chosen judge model
+  judgeModel  String?
+  // "pending" | "running" | "completed" | "failed"
+  status      String    @default("pending")
+  // Aggregate results + per-sample scores
+  results     Json?
+  createdAt   DateTime  @default(now())
+}
