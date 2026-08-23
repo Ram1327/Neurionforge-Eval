@@ -69,8 +69,8 @@
 
 ## What's Deployed / Live
 
-- **Vercel:** Pending — code ready locally and pushed to GitHub
-- **GitHub:** `https://github.com/Ram1327/Neurionforge-Eval.git` — up to date on `main`
+- **GitHub:** `https://github.com/Ram1327/Neurionforge-Eval.git` — up to date on `main` (commit `23acaa8`)
+- **Vercel:** Deployed from `main` branch with automatic Prisma generation configured.
 - **Supabase:** ✅ Fully connected and migrated! All 5 tables created (`Model`, `Benchmark`, `TestRun`, `ProjectionModel`, `CustomEvaluation`) and seeded with 3 benchmarks & 12 starter models.
 - **Inngest:** Handler and Hello World function ready at `/api/inngest` — waiting for account keys in Vercel.
 
