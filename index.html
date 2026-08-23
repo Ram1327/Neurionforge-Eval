@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AI Evaluation — NeurionForge</title>
+<meta name="description" content="We built the tests. Projected scores for frontier models, measured scores for anything you run yourself — bring your own key or your own local model." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<canvas class="forge-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="site-header anim" style="--d:0s">
+    <a href="https://neurionforge.com" class="brand" aria-label="NeurionForge home">
+      <svg class="brand-mark" width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2L36 11V29L20 38L4 29V11L20 2Z" stroke="var(--accent)" stroke-width="1.6"/>
+        <path d="M13 27V13L20 17.5V13L27 17.5V27" stroke="var(--paper)" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-word">NeurionForge</span>
+      <span class="brand-tag">Eval</span>
+    </a>
+
+    <nav class="nav-pill" aria-label="Primary">
+      <a href="https://neurionforge.com" class="nav-link">Home</a>
+      <a href="https://aistudio.neurionforge.com" class="nav-link">AI Studio</a>
+      <a href="https://eval.neurionforge.com" class="nav-link is-active">Evaluation</a>
+      <a href="https://agency.neurionforge.com" class="nav-link">Agency</a>
+    </nav>
+
+    <a href="#run" class="btn-signin">Run a model</a>
+
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="https://neurionforge.com" class="m-link"><span>Home</span></a>
+    <a href="https://aistudio.neurionforge.com" class="m-link"><span>AI Studio</span></a>
+    <a href="https://eval.neurionforge.com" class="m-link is-active"><span>Evaluation</span></a>
+    <a href="https://agency.neurionforge.com" class="m-link"><span>Agency</span></a>
+    <a href="#run" class="m-signin">Run a model</a>
+  </div>
+
+  <main>
+
+    <section class="hero">
+      <div class="eyebrow anim" style="--d:.05s"><span class="dot"></span><span>STATION 02 &mdash; AI EVALUATION</span></div>
+
+      <div class="trust-pill anim" style="--d:.12s">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Projected &amp; Measured &mdash; Transparent Methodology</span>
+      </div>
+
+      <h1 class="headline">
+        <span class="line anim" style="--d:.2s">We Built The Tests.</span>
+        <span class="line anim accent" style="--d:.34s">See How Frontier Stacks Up.</span>
+      </h1>
+
+      <p class="subhead anim" style="--d:.46s">
+        Projected scores for frontier models we can't afford to run at scale, measured scores
+        for anything you run yourself &mdash; your API key, your local model, your dataset.
+      </p>
+
+      <div class="hero-cta anim" style="--d:.58s">
+        <a href="#run" class="btn-primary">Run your own model</a>
+        <a href="#leaderboard" class="btn-ghost">View the leaderboard</a>
+      </div>
+
+      <div class="scroll-cue anim" style="--d:.74s" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section id="leaderboard" class="leaderboard">
+      <div class="section-head">
+        <h2 class="anim">The Leaderboard</h2>
+        <p class="anim" style="--d:.08s">Projected for frontier models. Measured for anything run through NeurionForge directly.</p>
+        <div class="legend anim" style="--d:.14s">
+          <span class="legend-item"><i class="badge-dot badge-measured"></i><span>Measured &mdash; run directly on our tests</span></span>
+          <span class="legend-item"><i class="badge-dot badge-projected"></i><span>Projected &mdash; estimated from public scores</span></span>
+        </div>
+      </div>
+
+      <div class="table-wrap anim" style="--d:.2s">
+        <div class="table-caption">Sample data &mdash; for illustration, not live results</div>
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Reasoning</th>
+              <th>Coding</th>
+              <th>Math</th>
+              <th>Overall</th>
+              <th>Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="model-cell">Frontier Model A</td>
+              <td>91.4</td><td>93.0</td><td>90.1</td><td>91.5</td>
+              <td><span class="badge badge-projected">~ Projected</span></td>
+            </tr>
+            <tr>
+              <td class="model-cell">Frontier Model B</td>
+              <td>90.2</td><td>91.6</td><td>92.0</td><td>91.3</td>
+              <td><span class="badge badge-projected">~ Projected</span></td>
+            </tr>
+            <tr>
+              <td class="model-cell">Frontier Model C</td>
+              <td>88.9</td><td>89.4</td><td>87.2</td><td>88.5</td>
+              <td><span class="badge badge-projected">~ Projected</span></td>
+            </tr>
+            <tr>
+              <td class="model-cell">Open Model 8B</td>
+              <td>82.1</td><td>84.0</td><td>79.6</td><td>81.9</td>
+              <td><span class="badge badge-measured">&check; Measured</span></td>
+            </tr>
+            <tr>
+              <td class="model-cell">Your Model</td>
+              <td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>
+              <td><a href="#run" class="badge badge-run">Run it &rarr;</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#methodology" class="methodology-link anim" style="--d:.26s">How projection works &rarr;</a>
+    </section>
+
+    <section id="run" class="core-loop">
+      <div class="section-head">
+        <h2 class="anim">Run Your Own Model</h2>
+        <p class="anim" style="--d:.08s">Three steps. Your key or your hardware &mdash; nothing runs on ours.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step-line" aria-hidden="true">
+          <div class="step-line-base"></div>
+          <div class="step-line-fill"></div>
+        </div>
+
+        <article class="step anim">
+          <span class="step-num">01</span>
+          <h3>Select Model</h3>
+          <p>Popular models, or your own &mdash; provider API, local endpoint, or a custom OpenAI-compatible URL.</p>
+          <div class="chip-row">
+            <span class="chip">Provider API</span>
+            <span class="chip">Local Model</span>
+            <span class="chip">Custom API</span>
+          </div>
+        </article>
+
+        <article class="step anim" style="--d:.08s">
+          <span class="step-num">02</span>
+          <h3>Select Benchmark</h3>
+          <p>One of our standard categories, or a dataset you upload with your own scoring criteria.</p>
+          <div class="chip-row">
+            <span class="chip">Reasoning</span>
+            <span class="chip">Coding</span>
+            <span class="chip">Custom Dataset</span>
+          </div>
+        </article>
+
+        <article class="step anim" style="--d:.16s">
+          <span class="step-num">03</span>
+          <h3>Run Evaluation</h3>
+          <p>Results come back scored, broken down per question, and marked Measured &mdash; permanently, publicly comparable.</p>
+          <div class="chip-row">
+            <span class="chip">Per-question detail</span>
+            <span class="chip">Shareable link</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="source-note anim" style="--d:.24s">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>API keys stay in your browser session &mdash; never stored on our servers.</span>
+      </div>
+    </section>
+
+    <section id="methodology" class="methodology">
+      <div class="section-head">
+        <h2 class="anim">How Projection Works</h2>
+        <p class="anim" style="--d:.08s">No black box &mdash; the formula and its inputs are public.</p>
+      </div>
+
+      <div class="method-grid">
+        <article class="method-card anim">
+          <span class="method-step">1</span>
+          <h3>Calibrate</h3>
+          <p>We run our own tests directly on open-weight models we can afford &mdash; that's our Measured calibration set.</p>
+        </article>
+        <article class="method-card anim" style="--d:.08s">
+          <span class="method-step">2</span>
+          <h3>Correlate</h3>
+          <p>Those same models have known public scores (GPQA, SWE-bench, AIME). We fit a transparent weighted formula between the two.</p>
+        </article>
+        <article class="method-card anim" style="--d:.16s">
+          <span class="method-step">3</span>
+          <h3>Project</h3>
+          <p>Frontier models' public scores go into that formula. Out comes a Projected score, with a confidence range &mdash; never false precision.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div class="section-head">
+        <h2 class="anim">Evaluation Categories</h2>
+        <p class="anim" style="--d:.08s">Focused on what's still hard, not what's already saturated.</p>
+      </div>
+      <div class="category-grid">
+        <span class="category-pill anim">Reasoning</span>
+        <span class="category-pill anim" style="--d:.03s">Coding</span>
+        <span class="category-pill anim" style="--d:.06s">Mathematics</span>
+        <span class="category-pill anim" style="--d:.09s">Knowledge</span>
+        <span class="category-pill anim" style="--d:.12s">Instruction Following</span>
+        <span class="category-pill anim" style="--d:.15s">Long Context</span>
+        <span class="category-pill anim" style="--d:.18s">Structured Output</span>
+        <span class="category-pill anim" style="--d:.21s">Tool Calling</span>
+        <span class="category-pill anim" style="--d:.24s">Safety</span>
+        <span class="category-pill is-hold anim" style="--d:.27s">Agent Testing &mdash; On Hold</span>
+      </div>
+    </section>
+
+    <section id="roadmap" class="roadmap">
+      <div class="section-head">
+        <h2 class="anim">The Build Path</h2>
+        <p class="anim" style="--d:.08s">Six phases &mdash; the projection engine only ships once there's real calibration data to earn it.</p>
+      </div>
+
+      <div class="track">
+        <div class="track-base"></div>
+        <div class="track-fill" data-fill="16"></div>
+      </div>
+
+      <div class="phases">
+        <article class="phase anim">
+          <div class="phase-head"><span class="phase-num">Phase 0</span><span class="tag tag-next">Next</span></div>
+          <h3>Foundations</h3>
+          <ul><li>Monorepo + Next.js shell</li><li>Prisma / Supabase schema</li><li>Provider client wrappers</li></ul>
+        </article>
+        <article class="phase anim" style="--d:.06s">
+          <div class="phase-head"><span class="phase-num">Phase 1</span><span class="tag tag-planned">Planned</span></div>
+          <h3>Core Loop</h3>
+          <ul><li>Reasoning / Coding / Math tests</li><li>Bring-your-own-key runs</li><li>Local models via tunnel URL</li></ul>
+        </article>
+        <article class="phase anim" style="--d:.12s">
+          <div class="phase-head"><span class="phase-num">Phase 2</span><span class="tag tag-planned">Planned</span></div>
+          <h3>Projection Engine</h3>
+          <ul><li>Calibration set built</li><li>Formula fit &amp; published</li><li>Homepage leaderboard live</li></ul>
+        </article>
+        <article class="phase anim" style="--d:.18s">
+          <div class="phase-head"><span class="phase-num">Phase 3</span><span class="tag tag-planned">Planned</span></div>
+          <h3>Custom Evaluations</h3>
+          <ul><li>Dataset upload</li><li>LLM-judge scoring</li><li>Shareable result links</li></ul>
+        </article>
+        <article class="phase anim" style="--d:.24s">
+          <div class="phase-head"><span class="phase-num">Phase 4</span><span class="tag tag-planned">Planned</span></div>
+          <h3>Local Connector</h3>
+          <ul><li>Dedicated connector app</li><li>Remaining categories</li><li>Agent testing stays on hold</li></ul>
+        </article>
+        <article class="phase anim" style="--d:.3s">
+          <div class="phase-head"><span class="phase-num">Phase 5</span><span class="tag tag-hold">Stretch</span></div>
+          <h3>Verified Frontier</h3>
+          <ul><li>Funded, periodic real runs</li><li>Projected &rarr; Measured, model by model</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="tech-strip anim">
+      <div class="tech-line">
+        <span class="tech-prompt">&gt;_</span>
+        <span>Projection formula: <span class="tech-highlight">transparent, published weights</span></span>
+      </div>
+      <div class="tech-stack">Next.js + Inngest</div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="brand-word small">NeurionForge</span>
+      <span class="footer-copy">&copy; 2026 NeurionForge. All rights reserved.</span>
+    </div>
+    <nav class="footer-links" aria-label="Products">
+      <a href="https://neurionforge.com">Home</a>
+      <a href="https://aistudio.neurionforge.com">AI Studio</a>
+      <a href="https://agency.neurionforge.com">Agency</a>
+      <a href="mailto:hello@neurionforge.com">Contact</a>
+    </nav>
+    <div class="footer-meta">neurionforge.com &nbsp;&middot;&nbsp; Transparent By Default</div>
+  </footer>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
