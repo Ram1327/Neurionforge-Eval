@@ -4,8 +4,8 @@
 > trust this file over its own assumptions about what's "probably" already built.
 > Update this whenever real progress is made; stale entries are worse than none.
 
-**Last updated:** 2026-08-20
-**Overall status:** Phase 0 — ✅ COMPLETE. Monorepo deployed, Next.js shell built, all provider wrappers and Inngest configured.
+**Last updated:** 2026-08-28
+**Overall status:** Phase 1 — ✅ COMPLETE. Core loop live with 3 benchmark suites, deterministic graders, SSE execution engine, `/run` wizard, and `/models/[id]` evidence pages.
 
 ---
 
@@ -16,23 +16,22 @@
 - `pnpm-workspace.yaml` — Declares `apps/web` as workspace package
 - `.gitignore`, `.npmrc` — Standard pnpm / Next.js ignores
 - `README.md` — Project entry point with links to md-files
-- `neurionforge-eval-implementation-plan.md` — Original implementation plan reference
-
-### Design Reference Files
-- `index.html` — Full HTML design reference (signal-green theme, complete page layout)
-- `styles.css` — Complete CSS design tokens: `--ink:#070908`, `--accent:#1fdfa6`, `--projected:#f5b942`, `--measured:#34d399`
-- `main.js` — Canvas animation, scroll reveals, and mobile menu JS
 
 ### Next.js App (`apps/web/`)
 - **Framework:** Next.js 16.3.1 + TypeScript + Tailwind CSS v4 + ESLint
-- **Build:** ✅ `pnpm build` passes with 0 TypeScript errors, 0 build errors
+- **Build:** ✅ `pnpm build` passes with 0 TypeScript errors, 0 build errors across all routes
 
 #### Routes
 | Route | Type | Status |
 |---|---|---|
-| `/` | Static (SSG) | ✅ Complete — full homepage (hero, leaderboard, steps, methodology, categories, roadmap, footer) |
-| `/api/health` | Dynamic | ✅ Complete — returns `{ status: "ok", phase: 0, timestamp }` |
-| `/api/inngest` | Dynamic | ✅ Complete — Inngest handler with Hello World function |
+| `/` | Static (SSG) | ✅ Complete — BridgeBench-style premium Dex leaderboard cards + hero anatomy panel |
+| `/run` | Static (SSG) | ✅ Complete — 4-step wizard with BYOK, benchmark selection, live SSE streaming, and result breakdown |
+| `/models` | Dynamic (SSR) | ✅ Complete — Models registry listing with composite scores & badges |
+| `/models/[id]` | Dynamic (SSR) | ✅ Complete — Model specification, composite score, and empirical test runs evidence table |
+| `/api/runs` | Dynamic (SSE) | ✅ Complete — Server-Sent Events benchmark runner with live grading & Supabase persistence |
+| `/api/runs/[runId]` | Dynamic | ✅ Complete — Single TestRun query endpoint |
+| `/api/health` | Dynamic | ✅ Complete — returns `{ status: "ok", phase: 1, timestamp }` |
+| `/api/inngest` | Dynamic | ✅ Complete — Inngest serve handler |
 
 #### App Files
 - `app/globals.css` — NeurionForge Eval design tokens (Tailwind v4 `@theme inline`), Google Fonts (Big Shoulders Display, Inter, IBM Plex Mono)

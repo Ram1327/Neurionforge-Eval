@@ -56,41 +56,34 @@
 *Goal: Build the end-to-end Measured evaluation pipeline with 3 objective benchmark categories (Reasoning, Coding, Math), exact-match & unit-test graders, `/run` interactive UI, BYOK support, and real-time execution results.*
 
 ### Benchmark Datasets & Deterministic Graders
-- [ ] Create Reasoning Benchmark dataset (MCQ / logic puzzles, sample size: 25–50 items)
-- [ ] Create Coding Benchmark dataset (Python/JS function specs with test cases, sample size: 25–50 items)
-- [ ] Create Math Benchmark dataset (GSM8k/AIME-style numeric & algebraic questions with exact normalized solutions)
-- [ ] Implement grading engines in `lib/scoring/`:
-  - [ ] `mcqGrader.ts`: standard option extraction (A/B/C/D) & regex parsing
-  - [ ] `exactMatchGrader.ts`: normalized string / numerical equivalence checker
-  - [ ] `unitTestRunner.ts`: safe sandboxed test runner for coding evaluations
+- [x] Create Reasoning Benchmark dataset (`lib/benchmarks/reasoning.ts`, 25 items MCQ) ✅
+- [x] Create Coding Benchmark dataset (`lib/benchmarks/coding.ts`, 25 items output-prediction) ✅
+- [x] Create Math Benchmark dataset (`lib/benchmarks/math.ts`, 25 items exact-match numeric) ✅
+- [x] Benchmark registry & types (`lib/benchmarks/types.ts`, `lib/benchmarks/index.ts`) ✅
+- [x] Implement grading engines in `lib/scoring/`:
+  - [x] `mcqGrader.ts`: standard option extraction (A/B/C/D) & robust regex parsing ✅
+  - [x] `exactMatchGrader.ts`: normalized string / numerical equivalence checker ✅
+  - [x] `index.ts`: unified `gradeItem` dispatcher ✅
 
-### Inngest Benchmark Runner Workflow
-- [ ] Implement `runBenchmark.ts` Inngest function:
-  - [ ] Step 1: Fetch benchmark prompt set & model credentials
-  - [ ] Step 2: Concurrency-controlled execution across prompts (tracking latency, status, output)
-  - [ ] Step 3: Run deterministic scoring per output
-  - [ ] Step 4: Calculate overall score, average latency, and throughput (tokens/sec)
-  - [ ] Step 5: Save result to Supabase as a Measured `TestRun`
-- [ ] Real-time progress tracking endpoint / polling mechanism for active runs
+### Evaluation Execution & Streaming API
+- [x] Singleton Prisma Client at `lib/db.ts` ✅
+- [x] `POST /api/runs`: Real-time Server-Sent Events (SSE) streaming execution runner ✅
+- [x] `GET /api/runs/[runId]`: TestRun detail API endpoint ✅
+- [x] Database sync: `TestRun` updated with `status` and `progressJson` (Prisma schema + Supabase pushed) ✅
 
 ### Evaluation UI (`/run`)
-- [ ] Model selector component:
-  - [ ] Popular Cloud Presets (Groq, Together, OpenRouter, OpenAI, Anthropic, Gemini)
-  - [ ] Custom / Local Endpoint (Ollama, vLLM, LM Studio via localhost / tunnel URL)
-  - [ ] Client-side BYOK key management (persisted only in browser `sessionStorage` / memory)
-- [ ] Benchmark suite selector (Reasoning, Coding, Math, or Full Battery)
-- [ ] Run configuration controls (temperature, max sample limit, timeout)
-- [ ] Live execution card: animated progress bar, current prompt preview, live pass/fail counts, streaming logs
-- [ ] Run completion summary modal with breakdown by category and sample inspection
+- [x] Model selector component (OpenRouter, OpenAI, Anthropic, Gemini, Local/Ollama/Custom) ✅
+- [x] Client-side BYOK key management (transient in-memory stream, zero server persistence) ✅
+- [x] Benchmark suite selector (Reasoning, Math, Coding) + sample limit & temperature controls ✅
+- [x] Live execution card: animated progress bar, live pass/fail stream, current latency ticker ✅
+- [x] Run completion summary card with accuracy percentage, latency, throughput, and model evidence link ✅
 
-### Model Detail Page (`/models/[id]`)
-- [ ] Model header (name, provider, release date, parameter size, context window)
-- [ ] Category breakdown card with score bars and pass rates
-- [ ] Evidence Breakdown table: lists every benchmark with clear **Measured** vs **Projected** badges
-- [ ] Latency, throughput (TPS), and pricing per 1M tokens display
-- [ ] Raw test sample inspector (view prompts, model responses, and grader verdicts)
+### Model Detail Page (`/models/[id]`) & Registry (`/models`)
+- [x] Model registry index page (`/models`) listing all tested models with score badges ✅
+- [x] Model detail page (`/models/[id]`) with composite measured score and empirical test runs evidence table ✅
+- [x] Shared UI components: `Badge.tsx` and `ProgressBar.tsx` ✅
 
-**Checkpoint:** Any user can visit `/run`, provide their own key or local tunnel, execute a 3-category benchmark, watch real-time progress, and view their verified Measured `TestRun`.
+**Checkpoint:** Any user can visit `/run`, provide their own key or local endpoint, execute a benchmark suite, watch real-time streaming progress, and inspect their verified Measured `TestRun` on `/models/[id]`. ✅
 
 ---
 

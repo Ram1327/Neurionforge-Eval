@@ -55,26 +55,23 @@ model Benchmark {
 
 // ── TestRun (one evaluation: one model × one benchmark) ─────────────────────
 model TestRun {
-  id              String           @id @default(cuid())
-  modelId         String
-  model           Model            @relation(fields: [modelId], references: [id], onDelete: Cascade)
-  benchmarkId     String
-  benchmark       Benchmark        @relation(fields: [benchmarkId], references: [id], onDelete: Cascade)
-  // "measured" | "projected"
-  resultType      String
-  // 0.0 to 100.0
-  score           Float
-  // Confidence interval (only for projected runs)
-  confidenceLow   Float?
-  confidenceHigh  Float?
-  // Which ProjectionModel produced this score (if resultType == "projected")
-  projectionId    String?
-  projection      ProjectionModel? @relation(fields: [projectionId], references: [id])
-  // Per-sample breakdown: [{ promptId, passed, latencyMs, tokens, output }]
-  rawResults      Json?
-  latencyAvgMs    Float?
-  throughputTps   Float?
-  runAt           DateTime         @default(now())
+  id             String           @id @default(cuid())
+  modelId        String
+  model          Model            @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  benchmarkId    String
+  benchmark      Benchmark        @relation(fields: [benchmarkId], references: [id], onDelete: Cascade)
+  resultType     String           @default("measured")
+  status         String           @default("pending")
+  score          Float?
+  confidenceLow  Float?
+  confidenceHigh Float?
+  projectionId   String?
+  projection     ProjectionModel? @relation(fields: [projectionId], references: [id])
+  rawResults     Json?
+  progressJson   Json?
+  latencyAvgMs   Float?
+  throughputTps  Float?
+  runAt          DateTime         @default(now())
 }
 
 // ── ProjectionModel (the OLS regression formula for a category) ──────────────
