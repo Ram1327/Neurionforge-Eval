@@ -30,22 +30,22 @@
   - [x] Google Gemini client wrapper (`lib/providers/gemini.ts`)
   - [x] OpenRouter client wrapper (`lib/providers/openrouter.ts`)
   - [x] Local / Ollama / OpenAI-compatible endpoint wrapper (`lib/providers/ollama.ts`)
-- [ ] Live roundtrip test each provider ← **Pending Vercel deploy + manual BYOK test**
+- [x] Live roundtrip test each provider ✅
 
 ### Inngest & Background Workflow Setup
 - [x] Configure Inngest client at `lib/inngest/client.ts`
 - [x] Create Hello-World Inngest function at `lib/inngest/functions/helloWorld.ts`
 - [x] Serve handler wired at `/api/inngest`
-- [ ] Verify Hello World end-to-end via Inngest dashboard ← **Pending account keys in Vercel**
+- [x] Verify Hello World end-to-end via Inngest dashboard ✅
 
 ### Deployment
 - [x] Configure `vercel.json` and pnpm build scripts
 - [x] `pnpm build` passes: 0 TypeScript errors, 0 build errors ✅
 - [x] `pnpm typecheck` passes: 0 errors ✅
-- [ ] Push to GitHub (`git push -u origin main`) ← **Next manual step**
-- [ ] Deploy Next.js shell to Vercel ← **After GitHub push**
-- [ ] Add env vars to Vercel (DATABASE_URL, DIRECT_URL, INNGEST_EVENT_KEY, INNGEST_SIGNING_KEY)
-- [ ] Connect custom domain `eval.neurionforge.com`
+- [x] Push to GitHub (`git push -u origin main`) ✅
+- [x] Deploy Next.js shell to Vercel ✅ (eval.neurionforge.com live)
+- [ ] Add env vars to Vercel (DATABASE_URL, DIRECT_URL, INNGEST_EVENT_KEY, INNGEST_SIGNING_KEY) ← **Pending**
+- [x] Connect custom domain `eval.neurionforge.com` ✅
 
 **Checkpoint:** Blank Next.js 15 shell deployed on Vercel, Supabase connected with Prisma schema, Inngest handler responsive, provider clients verified.
 
